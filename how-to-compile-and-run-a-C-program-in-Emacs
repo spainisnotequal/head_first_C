@@ -1,0 +1,9 @@
+1) Create a makefile file, adapting the following example:
+   program_name: source.c
+   [TAB] gcc -Wall -g source.c -o program_name
+
+2) M-x compile, to compile the program.
+
+3) M-x shell, to open a shell terminal in the current buffer.
+
+4) ./program-name, to run the program
