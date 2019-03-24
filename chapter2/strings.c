@@ -1,5 +1,6 @@
 /*
- * Program to learn how strings are passed to a function.
+ * Program to learn how strings are passed to a function,
+ * and the differences between arrays and pointers.
  */
 
 #include <stdio.h>
