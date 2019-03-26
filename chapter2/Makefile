@@ -1,2 +1,4 @@
-strings: strings.c
-	gcc -Wall -g strings.c -o strings
+CFLAGS = -Wall -Wextra -g
+
+%: %.c
+	gcc $(CFLAGS) $^ -o $@
