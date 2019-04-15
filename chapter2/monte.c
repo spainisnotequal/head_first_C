@@ -6,7 +6,7 @@
 
 int main()
 {
-        char *cards = "JQK";
+        const char *cards = "JQK";
         char a_card = cards[2];
 
         cards[2] = cards[1]; // Wrong! String literals cannot be modified
