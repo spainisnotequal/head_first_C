@@ -48,7 +48,8 @@ int main()
         printf("product information: %s\n", line);
 
         /* Now,we should write some kind of function to parse the data here,
-           using functions like getchar(), strtol(), strtod(), etc. */
+           using functions like strtok(), strtol(), strtod(), sscanf(),
+           getchar(), etc. */
         
         return 0;
 }
