@@ -2,9 +2,11 @@
  * Program to learn the differences between two fscanf() modifiers:
  *     - "%79[^\n]"
  *     - "%79[^\n]\n"
+ * We also use fgets(), to compare the results
  */
 
 #include <stdio.h>
+#include <string.h>
 
 int main ()
 {
@@ -25,6 +27,16 @@ int main ()
         while (fscanf(input2, "%79[^\n]\n", line) == 1)
                 printf("%s\n", line);
         fclose(input2);
+
+        FILE *input3 = fopen("some.text", "r");
+        puts("");
+        puts("fgets() results:");
+        puts("----------------");
+        while (fgets(line, sizeof(line), input3)) {
+                line[strcspn(line, "\n")] = 0; // removes the trailing newline character
+                printf("%s\n", line);
+        }
+        fclose(input3);
 
         return 0;
 }
