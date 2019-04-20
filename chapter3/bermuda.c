@@ -1,5 +1,5 @@
 /*
- * Program to filter data that is inside the Bermuda Rectangle
+ * Program to filter data that it's inside the Bermuda Rectangle
  */
 
 #include <stdio.h>
