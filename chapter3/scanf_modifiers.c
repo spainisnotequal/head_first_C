@@ -1,5 +1,5 @@
 /*
- * Program to see the differences between two fscanf() modifiers:
+ * Program to learn the differences between two fscanf() modifiers:
  *     - "%79[^\n]"
  *     - "%79[^\n]\n"
  */
