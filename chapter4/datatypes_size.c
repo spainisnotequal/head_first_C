@@ -12,7 +12,7 @@ int main ()
         int   c;
         long  d;
 
-        printf("The size of the interger 'char' data type is:  %zu bytes\n", sizeof a);
+        printf("\nThe size of the interger 'char' data type is:  %zu bytes\n", sizeof a);
         printf("The size of the interger 'short' data type is: %zu bytes\n", sizeof b);
         printf("The size of the interger 'int' data type is:   %zu bytes\n", sizeof c);
         printf("The size of the interger 'long' data type is:  %zu bytes\n", sizeof d);
@@ -21,8 +21,19 @@ int main ()
         float  e;
         double f;
         
-        printf("The size of the floating point 'float' data type is:  %zu bytes\n", sizeof e);
+        printf("\nThe size of the floating point 'float' data type is:  %zu bytes\n", sizeof e);
         printf("The size of the floating point 'double' data type is: %zu bytes\n", sizeof f);
+
+        // Other numbers: unsigned, long
+        unsigned int g;
+        long int h;
+        long long i;
+        long double j;
+
+        printf("\nThe size of the interger 'unsigned int' data type is:      %zu bytes\n", sizeof g);
+        printf("The size of the interger 'long int' data type is:          %zu bytes\n", sizeof h);
+        printf("The size of the interger 'long long' data type is:         %zu bytes\n", sizeof i);
+        printf("The size of the floating point 'long double' data type is: %zu bytes\n", sizeof j);
         
         return 0;
 }
