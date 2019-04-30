@@ -20,8 +20,8 @@ void add1real_not_update (struct complex c) // by default, parameters are passed
 void add1real_and_update (struct complex *c) // use pointers to pass parameters
                                              // by reference
 {
-        (*c).re += 1;
-        printf("%i + %ij\n", (*c).re, (*c).im);
+        c->re += 1; //(*c).re += 1;
+        printf("%i + %ij\n", c->re, c->im); //printf("%i + %ij\n", (*c).re, (*c).im);
 }
 
 int main()
