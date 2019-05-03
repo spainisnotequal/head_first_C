@@ -32,8 +32,16 @@ void label (struct fish f);
 
 int main()
 {
-        struct fish snappy = {"Snappy", "Piranha", 69, 4,
-                              {{"meat",0.2}, {"swim in the jacuzzi", 7.5}}};
+        struct fish snappy = {
+                .name = "Snappy",
+                .species = "Piranha",
+                .teeth = 69,
+                .age = 4,
+                .care.food.ingredients = "food",
+                .care.food.weight = 0.2,
+                .care.exercise.description = "swim in the jacuzzi",
+                .care.exercise.duration = 7.5
+        };
         catalog(snappy);
         label(snappy);
                  
