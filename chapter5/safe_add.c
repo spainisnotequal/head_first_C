@@ -22,8 +22,8 @@ struct safe_short safe_add(short a, short b)
 {
         struct safe_short safe_result;
         
-        if (((b > 0) && (a > SHRT_MAX - b)) ||
-            ((b < 0) && (a < SHRT_MIN - b)))
+        if (((b > 0) && (a > SHRT_MAX - b)) ||    // overflow
+            ((b < 0) && (a < SHRT_MIN - b)))      // underflow
         {
                 safe_result.type = ERROR;
                 safe_result.error = -1;
@@ -38,26 +38,29 @@ struct safe_short safe_add(short a, short b)
 
 int main(){
 
-        const struct safe_short sum1 = safe_add(2,3);
+        short a = 2;
+        short b = -5;
+
+        const struct safe_short sum1 = safe_add(a, b);
         if (sum1.type == ERROR)
                 printf("Addition failed (line %d, file '%s')\n",
                        __LINE__, __FILE__);
         else
-                printf("%hi + %hi = %hi\n", 2, 3, sum1.value);
+                printf("%hi + %hi = %hi\n", a, b, sum1.value);
 
-        const struct safe_short sum2 = safe_add(SHRT_MAX,5);
+        const struct safe_short sum2 = safe_add(SHRT_MAX, a);
         if (sum2.type == ERROR)
                 printf("Addition failed (line %d, file '%s')\n",
                        __LINE__, __FILE__);
         else
-                printf("%hi + %hi = %hi\n", SHRT_MAX, 5, sum2.value);
+                printf("%hi + %hi = %hi\n", SHRT_MAX, a, sum2.value);
 
-        const struct safe_short sum3 = safe_add(SHRT_MIN,-5);
+        const struct safe_short sum3 = safe_add(SHRT_MIN, b);
         if (sum3.type == ERROR)
                 printf("Addition failed (line %d, file '%s')\n",
                        __LINE__, __FILE__);
         else
-                printf("%hi + %hi = %hi\n", SHRT_MIN, -5, sum3.value);
+                printf("%hi + %hi = %hi\n", SHRT_MIN, b, sum3.value);
         
 	return 0;
 }
