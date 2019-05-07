@@ -3,7 +3,6 @@
  */
 
 #include <stdio.h>
-#include <stdbool.h>
 
 struct survey1 {
         unsigned short first_visit;
