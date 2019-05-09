@@ -3,6 +3,7 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 struct island {
         const char *name;
@@ -18,57 +19,33 @@ void display (struct island *start)
                 printf("Name: %s open: %s-%s\n", i->name, i->opens, i->closes);
 }
 
+struct island* create (const char *name)
+{
+        struct island *i = malloc(sizeof(struct island));
+
+        i->name = name;
+        i->opens = "09:00";
+        i->closes = "17:00";
+        i->next = NULL;
+
+        return i;
+}
+
 int main()
 {
-        // create the islands
-        struct island amity = {
-                .name = "Amity",
-                .opens = "09:00",
-                .closes = "17:00",
-                .next = NULL
-        };
-        struct island craggy = {
-                .name = "Craggy",
-                .opens = "09:00",
-                .closes = "17:00",
-                .next = NULL
-        };
-        struct island isla_nublar = {
-                .name = "Isla Nublar",
-                .opens = "09:00",
-                .closes = "17:00",
-                .next = NULL
-        };
-        struct island shutter = {
-                .name = "Shutter",
-                .opens = "09:00",
-                .closes = "17:00",
-                .next = NULL
-        };
+        char name[80];
+        
+        printf("Enter the name of an island: ");
+        fgets(name, 80, stdin);
+        struct island *p_island_0 = create(name);
 
-        // link them together to create a tour
-        amity.next = &craggy;
-        craggy.next = &isla_nublar;
-        isla_nublar.next = &shutter;
+        printf("Enter the name another island: ");
+        fgets(name, 80, stdin);
+        struct island *p_island_1 = create(name);
 
-        // display the tour
-        printf("Original tour:\n");
-        display(&amity);
+        p_island_0->next = p_island_1;
 
-        // insert a new island between Isla Nubblar and Shutter islands
-        struct island skull = {
-                .name = "Skull",
-                .opens = "09:00",
-                .closes = "17:00",
-                .next = NULL
-        };
-
-        isla_nublar.next = &skull;
-        skull.next = &shutter;
-
-        // display the tour
-        printf("\nModified tour:\n");
-        display(&amity);
+        display(p_island_0);
         
         return 0;
 }
