@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 struct island {
         const char *name;
@@ -23,7 +24,7 @@ struct island* create (const char *name)
 {
         struct island *i = malloc(sizeof(struct island));
 
-        i->name = name;
+        i->name = strdup(name);
         i->opens = "09:00";
         i->closes = "17:00";
         i->next = NULL;
@@ -31,21 +32,23 @@ struct island* create (const char *name)
         return i;
 }
 
+
 int main()
 {
+        struct island *start = NULL;
+        struct island *i = NULL;
+        struct island *next = NULL;
         char name[80];
+
+        for (; fgets(name, 80, stdin) != NULL; i = next) {
+                next = create(name);
+                if (start == NULL)
+                        start = next;
+                if (i != NULL)
+                        i->next = next;
+        }
         
-        printf("Enter the name of an island: ");
-        fgets(name, 80, stdin);
-        struct island *p_island_0 = create(name);
-
-        printf("Enter the name another island: ");
-        fgets(name, 80, stdin);
-        struct island *p_island_1 = create(name);
-
-        p_island_0->next = p_island_1;
-
-        display(p_island_0);
-        
+        display(start);
+                
         return 0;
 }
