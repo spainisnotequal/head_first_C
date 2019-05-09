@@ -7,9 +7,9 @@
 #include <string.h>
 
 struct island {
-        const char *name;
-        const char *opens;
-        const char *closes;
+        char *name;
+        char *opens;
+        char *closes;
         struct island *next;
 };
 
