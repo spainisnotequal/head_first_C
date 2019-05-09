@@ -32,6 +32,18 @@ struct island* create (const char *name)
         return i;
 }
 
+void release (struct island *start)
+{
+        struct island *i = start;
+        struct island *next = NULL;
+
+        for (; i != NULL; i = next) {
+                next = i->next;
+                free(i->name);
+                free(i);
+        }
+}
+
 
 int main()
 {
@@ -49,6 +61,7 @@ int main()
         }
         
         display(start);
+        release(start);
                 
         return 0;
 }
