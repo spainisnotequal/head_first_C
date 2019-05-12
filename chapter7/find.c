@@ -16,7 +16,7 @@ const char *ADS[] = {
         "Jed: DBM likes theater, books and dining"
 };
 
-void find ()
+void find (void)
 {
         puts("Search results:");
         puts("------------------------------------------");
