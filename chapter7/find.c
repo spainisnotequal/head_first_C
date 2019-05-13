@@ -28,7 +28,7 @@ void find (void)
         puts("------------------------------------------");
 }
 
-int main()
+int main (void)
 {
         find();
                
