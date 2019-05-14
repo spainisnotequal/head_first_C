@@ -16,21 +16,45 @@ const char *ADS[] = {
         "Jed: DBM likes theater, books and dining"
 };
 
-void find (void)
+int sports_no_bieber (const char *s)
+{
+        return strstr(s, "sports") && !strstr(s, "bieber");
+}
+
+int sports_or_workout (const char *s)
+{
+        return strstr(s, "sports") || strstr(s, "working out");
+}
+
+int ns_theather (const char *s)
+{
+        return strstr(s, "NS") && strstr(s, "theater");
+}
+
+int arts_theater_dining (const char *s)
+{
+        return strstr(s, "arts") || strstr(s, "theater") || strstr(s, "dining");
+}
+
+void find (int (*match)(const char *))
 {
         puts("Search results:");
         puts("------------------------------------------");
 
         for (size_t i = 0; i < NUM_ADS; i++) {
-                if ((strstr(ADS[i], "sports")) && (! strstr(ADS[i], "bieber")))
+                if (match(ADS[i])) {
                         printf("%s\n", ADS[i]);
+                }
         }
         puts("------------------------------------------");
 }
 
 int main (void)
 {
-        find();
+        find(sports_no_bieber);
+        find(sports_or_workout);
+        find(ns_theather);
+        find(arts_theater_dining);
                
         return 0;
 }
