@@ -77,16 +77,16 @@ int main (void)
 
         // Compare structures:
         struct rectangle r1 = {
-                r1.width = 1,
-                r1.height  = 1
+                .width = 1,
+                .height  = 1
         };
         struct rectangle r2 = {
-                r2.width = 1,
-                r2.height  = 3
+                .width = 1,
+                .height  = 3
         };
         struct rectangle r3 = {
-                r3.width = 2,
-                r3.height  = 1
+                .width = 2,
+                .height  = 1
         };
         struct rectangle rectangles[] = {r1, r2, r3};
 
