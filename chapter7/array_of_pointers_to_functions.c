@@ -52,7 +52,10 @@ int main (void)
         size_t  num_elements = sizeof(r)/sizeof(r[0]);
         
         for (size_t i = 0; i < num_elements; i++) {
+                // The three alternatives are perfectly valid:
+                //replies[r[i].type](r[i]);
                 (replies[r[i].type])(r[i]);
+                //(*replies[r[i].type])(r[i]);
         }
 
         return 0;
