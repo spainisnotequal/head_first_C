@@ -1,11 +1,11 @@
-encrypt.o: encrypt.c
-	gcc -c encrypt.c -o encrypt.o
+hfcal.o: hfcal.c
+	gcc -I./includes -c hfcal.c -o hfcal.o
 
-checksum.o: checksum.c
-	gcc -c checksum.c -o checksum.o
+elliptical.o: elliptical.c
+	gcc -I./includes -c elliptical.c -o elliptical.o
 
-libhfsecurity.a: encrypt.o checksum.o
-	ar -rcs libhfsecurity.a encrypt.o checksum.o
+libhfcal.a: hfcal.o
+	ar -rcs ./libs/libhfcal.a hfcal.o
 
-test_code: test_code.c libhfsecurity.a
-	gcc test_code.c -L. -lhfsecurity -o test_code
+elliptical: elliptical.o libhfcal.a
+	gcc elliptical.o -L./libs -lhfcal -o elliptical
