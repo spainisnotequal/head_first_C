@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+#include <sys/wait.h>
 
 
 void error(const char *msg)
@@ -43,6 +44,15 @@ int main (int argc, char *argv[])
                            "./rssgossip.py", phrase, NULL, vars) == -1) {
                         error("Can't run script");
                 }
+        }
+
+        int pid_status;
+        if (waitpid(pid, &pid_status, 0) == -1) {
+                error("Error waiting for the child process");
+        }
+
+        if (WEXITSTATUS(pid_status)) {
+                puts("Error status non-zero");
         }
 
         return 0;
