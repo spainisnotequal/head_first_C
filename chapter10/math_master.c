@@ -12,12 +12,14 @@
 
 int SCORE = 0;
 
-void end_game (int sig) {
+void end_game (int sig)
+{
         printf("\nFinal score: %i\n", SCORE);
         exit(0);
 }
 
-int catch_signal (int sig, void (*handler)(int)) {
+int catch_signal (int sig, void (*handler)(int))
+{
         struct sigaction action;
         action.sa_handler = handler;
         sigemptyset(&action.sa_mask);
@@ -26,12 +28,14 @@ int catch_signal (int sig, void (*handler)(int)) {
         return sigaction (sig, &action, NULL);
 }
 
-void times_up (int sig) {
+void times_up (int sig)
+{
         puts("\nTIME'S UP!");
         raise(SIGINT);
 }
 
-int main (void) {
+int main (void)
+{
         catch_signal(SIGALRM, times_up);
         catch_signal(SIGINT, end_game);
 

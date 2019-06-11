@@ -7,12 +7,14 @@
 #include <stdlib.h>
 
 
-void diediedie (int sig) {
+void diediedie (int sig)
+{
         puts ("\nGoodbye cruel world....\n");
         exit(1);
 }
 
-int catch_signal (int sig, void (*handler)(int)) {
+int catch_signal (int sig, void (*handler)(int))
+{
         struct sigaction action;
         action.sa_handler = handler;
         sigemptyset(&action.sa_mask);
@@ -21,7 +23,8 @@ int catch_signal (int sig, void (*handler)(int)) {
         return sigaction (sig, &action, NULL);
 }
 
-int main (void) {
+int main (void)
+{
         if (catch_signal(SIGINT, diediedie) == -1) {
                 fprintf(stderr, "Can't map the handler");
                 exit(2);
