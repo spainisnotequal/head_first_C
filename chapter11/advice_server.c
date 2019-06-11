@@ -31,7 +31,10 @@ int main (void) {
         name.sin_family = PF_INET;
         name.sin_port = (in_port_t)htons(30000);
         name.sin_addr.s_addr = htonl(INADDR_ANY);
-        bind(listener_d, (struct sockaddr *) &name, sizeof(name));
+
+        if (bind(listener_d, (struct sockaddr *) &name, sizeof(name)) == -1) {
+                error("Can't bind the port\n");
+        }
 
         listen(listener_d, 10);
         puts("Waiting for connection");
