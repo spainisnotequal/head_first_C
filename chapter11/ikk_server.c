@@ -1,5 +1,6 @@
 /*
- * Program to learn about sockets and networking
+ * Program to implement a simple server,
+ * that sends and recieves predefined messages
  */
 
 #include <stdio.h>
@@ -11,6 +12,20 @@
 #include <unistd.h> // to close the conexion
 #include <signal.h>
 
+
+#define PORT 30000
+#define QUEUE_DEPTH 10
+
+
+int catch_signal (int sig, void (*handler)(int))
+{
+        struct sigaction action;
+        action.sa_handler = handler;
+        sigemptyset(&action.sa_mask);
+        action.sa_flags = 0;
+
+        return sigaction (sig, &action, NULL);
+}
 
 void error (const char *msg)
 {
@@ -56,7 +71,7 @@ int say (int socket, const char *s)
         return result;
 }
 
-int read_in(int socket, char *buf, int len)
+int read_in (int socket, char *buf, int len)
 {
         char *s = buf;
         int slen = len;
@@ -79,7 +94,7 @@ int read_in(int socket, char *buf, int len)
 
 int listener_d;
 
-void handle_shutdown(int sig)
+void handle_shutdown (int sig)
 {
         if (listener_d) {
                 close(listener_d);
@@ -87,4 +102,54 @@ void handle_shutdown(int sig)
 
         fprintf(stderr, "Bye!\n");
         exit(0);
+}
+
+
+int main (void)
+{
+        if (catch_signal(SIGINT, handle_shutdown) == -1) {
+                error("Can’t set the interrupt handler");
+        }
+
+        listener_d = open_listener_socket();
+        bind_to_port(listener_d, PORT);
+        if (listen(listener_d, QUEUE_DEPTH) == -1) {
+                error("Can't listen");
+        }
+
+        struct sockaddr_storage client_addr;
+        unsigned int address_size = sizeof(client_addr);
+        puts("Waiting for connection");
+
+        char buf[255];
+
+        while (1) {
+                int connect_d = accept(listener_d,
+                                       (struct sockaddr *)&client_addr,
+                                       &address_size);
+                if (connect_d == -1) {
+                        error("Can’t open secondary socket");
+                }
+
+                if (say(connect_d,
+                        "Internet Knock-Knock Protocol Server\r\nVersion 1.0\r\nKnock! Knock!\r\n> ") != -1) {
+                        read_in(connect_d, buf, sizeof(buf));
+                        if (strncasecmp("Who's there?", buf, 12)) {
+                                say(connect_d, "You should say 'Who's there?'!");
+                        } else {
+                                if (say(connect_d, "Oscar\r\n> ") != -1) {
+                                        read_in(connect_d, buf, sizeof(buf));
+                                        if (strncasecmp("Oscar who?", buf, 10)) {
+                                                say(connect_d, "You should say 'Oscar who?'!\r\n");
+                                        } else {
+                                                say(connect_d, "Oscar silly question, you get a silly answer\r\n");
+                                        }
+                                }
+                        }
+                }
+                
+                close(connect_d);
+        }
+        
+        return 0;
 }
