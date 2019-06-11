@@ -11,12 +11,14 @@
 #include <unistd.h> // for closing the conexion
 
 
-void error (const char *msg) {
+void error (const char *msg)
+{
         fprintf(stderr, "%s: %s\n", msg, strerror(errno));
         exit(1);
 }
 
-int main (void) {
+int main (void)
+{
 
         char *advice[] = {
                 "Take smaller bites\r\n",
