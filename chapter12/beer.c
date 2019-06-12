@@ -10,7 +10,8 @@
 #include <pthread.h> // POSIX thread library
 
 
-int BEERS = 2000000;
+int beers = 2000000;
+pthread_mutex_t beers_lock = PTHREAD_MUTEX_INITIALIZER;
 
 void error (const char *msg)
 {
@@ -20,9 +21,12 @@ void error (const char *msg)
 
 void * drinks_lots (void *a)
 {
+	pthread_mutex_lock(&beers_lock);
 	for (int i = 0; i < 100000; i++) {
-		BEERS -= 1;
+		beers -= 1;
 	}
+	pthread_mutex_unlock(&beers_lock);
+	printf("beers = %i\n", beers);
 	return NULL;
 }
 
@@ -32,7 +36,7 @@ int main (void)
 	pthread_t threads[20]; // create 20 pthread_t data structures
 	int t;
 	printf("%i bottles of beer on the wall\n%i bottles of beer\n",
-	       BEERS, BEERS);
+	       beers, beers);
 	
 	// creates 20 threads:
 	for (t = 0; t < 20; t++) {
@@ -48,7 +52,7 @@ int main (void)
 			error("Can't join thread t");
 		}
 	}
-	printf("The are now %i bottles of beer on the wall\n", BEERS);
+	printf("The are now %i bottles of beer on the wall\n", beers);
 		
         return 0;
 }
