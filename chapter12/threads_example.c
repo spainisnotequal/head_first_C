@@ -38,8 +38,6 @@ void * does_too (void *a)
 	return NULL;
 }
 
- 
-
 
 int main (void)
 {
