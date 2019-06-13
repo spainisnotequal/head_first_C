@@ -17,7 +17,7 @@ void * do_stuff (void *param) // a thread function only can accept a single
 
 int main (void)
 {
-	pthread_t threads[20];
+	pthread_t threads[3];
 	long t;
 	for (t = 0; t < 3; t++) {
 		pthread_create(&threads[t],
